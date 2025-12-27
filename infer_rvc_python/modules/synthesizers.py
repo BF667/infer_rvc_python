@@ -2,7 +2,7 @@ import os
 import sys
 import torch
 
-sys.path.append(os.getcwd())
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 from modules.hifigan import HiFiGANGenerator
 from modules.refinegan import RefineGANGenerator
