@@ -11,7 +11,7 @@ from torch.utils.checkpoint import checkpoint
 from torch.nn.utils import remove_weight_norm
 from torch.nn.utils.parametrizations import weight_norm
 
-sys.path.append(os.getcwd())
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 from modules.commons import init_weights, get_padding
 
