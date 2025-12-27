@@ -5,7 +5,7 @@ import torch
 from torch.nn.utils import remove_weight_norm
 from torch.nn.utils.parametrizations import weight_norm
 
-sys.path.append(os.getcwd())
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 from .modules import WaveNet
 from .commons import get_padding, init_weights
