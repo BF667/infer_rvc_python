@@ -11,8 +11,8 @@ import soundfile as sf
 import torch.nn.functional as F
 
 sys.path.append(os.getcwd())
-
-from modules import opencl
+basedir = "infer_rvc_python"
+from infer_rvc_python.modules import opencl
 
 def change_rms(source_audio, source_rate, target_audio, target_rate, rate):
     rms2 = F.interpolate(torch.from_numpy(librosa.feature.rms(y=target_audio, frame_length=target_rate // 2 * 2, hop_length=target_rate // 2)).float().unsqueeze(0), size=target_audio.shape[0], mode="linear").squeeze()
@@ -40,7 +40,7 @@ def HF_download_file(url, output_path=None):
 
 def check_predictors(method):
     def download(predictors):
-        if not os.path.exists(os.path.join("models", predictors)): 
+        if not os.path.exists(os.path.join(basedir, "models", predictors)): 
            HF_download_file(codecs.decode("uggcf://uhttvatsnpr.pb/NauC/Ivrganzrfr-EIP-Cebwrpg/erfbyir/znva/cerqvpgbef/", "rot13") + predictors, os.path.join("models", predictors))
 
     model_dict = {
@@ -59,7 +59,7 @@ def check_predictors(method):
 def check_embedders(hubert):
     if hubert in ["contentvec_base", "hubert_base", "japanese_hubert_base", "korean_hubert_base", "chinese_hubert_base", "portuguese_hubert_base", "spin"]:
         hubert += ".pt"
-        model_path = os.path.join("models", hubert)
+        model_path = os.path.join(basedir, "models", hubert)
         if not os.path.exists(model_path): 
             HF_download_file("".join([codecs.decode("uggcf://uhttvatsnpr.pb/NauC/Ivrganzrfr-EIP-Cebwrpg/erfbyir/znva/rzorqqref/", "rot13"), "fairseq/", hubert]), model_path)
 
