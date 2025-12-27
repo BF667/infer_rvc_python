@@ -3,7 +3,7 @@ import sys
 import math
 import torch
 
-sys.path.append(os.getcwd())
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 from modules.modules import WaveNet
 from modules.commons import sequence_mask
