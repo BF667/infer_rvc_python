@@ -16,7 +16,7 @@ from torch.nn.utils.parametrizations import weight_norm
 
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
-from modules import opencl
+from . import opencl
 
 os.environ["LRU_CACHE_CAPACITY"] = "3"
 

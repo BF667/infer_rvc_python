@@ -10,9 +10,9 @@ from scipy import signal
 
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
-from modules.generator import Generator
-from modules.rms import RMSEnergyExtractor
-from modules.utils import change_rms, clear_gpu_cache
+from .generator import Generator
+from .rms import RMSEnergyExtractor
+from .utils import change_rms, clear_gpu_cache
 
 bh, ah = signal.butter(N=5, Wn=48, btype="high", fs=16000)
 

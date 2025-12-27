@@ -4,7 +4,7 @@ import torch
 
 sys.path.append(os.getcwd())
 
-from modules import opencl
+from . import opencl
 
 def singleton(cls):
     instances = {}

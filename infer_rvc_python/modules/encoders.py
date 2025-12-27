@@ -5,10 +5,10 @@ import torch
 
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
-from modules.modules import WaveNet
-from modules.commons import sequence_mask
-from modules.normalization import LayerNorm
-from modules.attentions import MultiHeadAttention, FFN
+from .modules import WaveNet
+from .commons import sequence_mask
+from .normalization import LayerNorm
+from .attentions import MultiHeadAttention, FFN
 
 class Encoder(torch.nn.Module):
     def __init__(self, hidden_channels, filter_channels, n_heads, n_layers, kernel_size=1, p_dropout=0.0, window_size=10, **kwargs):

@@ -8,8 +8,8 @@ from torch.nn.utils.parametrizations import weight_norm
 
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
-from modules.commons import init_weights
-from modules.residuals import ResBlock, LRELU_SLOPE
+from .commons import init_weights
+from .residuals import ResBlock, LRELU_SLOPE
 
 class HiFiGANGenerator(torch.nn.Module):
     def __init__(self, initial_channel, resblock_kernel_sizes, resblock_dilation_sizes, upsample_rates, upsample_initial_channel, upsample_kernel_sizes, gin_channels=0):

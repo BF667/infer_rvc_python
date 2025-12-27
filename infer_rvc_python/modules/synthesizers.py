@@ -4,13 +4,13 @@ import torch
 
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
-from modules.hifigan import HiFiGANGenerator
-from modules.refinegan import RefineGANGenerator
-from modules.residuals import ResidualCouplingBlock
-from modules.mrf_hifigan import HiFiGANMRFGenerator
-from modules.nsf_hifigan import HiFiGANNRFGenerator
-from modules.encoders import TextEncoder, PosteriorEncoder
-from modules.commons import slice_segments, rand_slice_segments
+from .hifigan import HiFiGANGenerator
+from .refinegan import RefineGANGenerator
+from .residuals import ResidualCouplingBlock
+from .mrf_hifigan import HiFiGANMRFGenerator
+from .nsf_hifigan import HiFiGANNRFGenerator
+from .encoders import TextEncoder, PosteriorEncoder
+from .commons import slice_segments, rand_slice_segments
 
 class Synthesizer(torch.nn.Module):
     def __init__(self, spec_channels, segment_size, inter_channels, hidden_channels, filter_channels, n_heads, n_layers, kernel_size, p_dropout, resblock, resblock_kernel_sizes, resblock_dilation_sizes, upsample_rates, upsample_initial_channel, upsample_kernel_sizes, spk_embed_dim, gin_channels, sr, use_f0, text_enc_hidden_dim=768, vocoder="Default", checkpointing=False, energy=False, **kwargs):

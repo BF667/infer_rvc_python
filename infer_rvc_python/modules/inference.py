@@ -11,12 +11,12 @@ import soundfile as sf
 warnings.filterwarnings("ignore")
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
-from modules import fairseq
-from modules.cut import cut, restore
-from modules.pipeline import Pipeline
-from modules.utils import clear_gpu_cache
-from modules.synthesizers import Synthesizer
-from modules.utils import check_predictors, check_embedders, load_audio
+import fairseq
+from .cut import cut, restore
+from .pipeline import Pipeline
+from .utils import clear_gpu_cache
+from .synthesizers import Synthesizer
+from .utils import check_predictors, check_embedders, load_audio
 
 for l in ["torch", "faiss", "omegaconf", "httpx", "httpcore", "faiss.loader", "numba.core", "urllib3", "transformers", "matplotlib"]:
     logging.getLogger(l).setLevel(logging.ERROR)
@@ -243,7 +243,7 @@ class VoiceConverter:
                 self.tgt_sr = resample_sr
 
             if clean_audio:
-                from modules.noisereduce import reduce_noise
+                from .noisereduce import reduce_noise
                 audio_output = reduce_noise(
                     y=audio_output, 
                     sr=self.tgt_sr, 

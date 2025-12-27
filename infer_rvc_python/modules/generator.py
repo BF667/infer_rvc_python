@@ -12,12 +12,12 @@ from scipy.signal import medfilt
 
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
-from modules.rmvpe import RMVPE
-from modules.utils import Autotune
-from modules.torchfcpe import FCPE
-from modules.pyworld import PYWORLD
-from modules.swipe import swipe, stonemask
-from modules.torchcrepe import CREPE, mean, median
+from .rmvpe import RMVPE
+from .utils import Autotune
+from .torchfcpe import FCPE
+from .pyworld import PYWORLD
+from .swipe import swipe, stonemask
+from .torchcrepe import CREPE, mean, median
 
 @nb.jit(nopython=True)
 def post_process(f0, f0_up_key, f0_mel_min, f0_mel_max):

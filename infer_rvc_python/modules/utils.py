@@ -10,10 +10,10 @@ import soundfile as sf
 import torch.nn.functional as F
 
 # Relative import for OpenCL to ensure it works when installed via pip
-from .modules import opencl
+from . import opencl
 # Optional: Conditional import for StftPitchShift to prevent circular errors if not present
 try:
-    from .modules.stftpitchshift import StftPitchShift
+    from .stftpitchshift import StftPitchShift
 except ImportError:
     StftPitchShift = None
 
