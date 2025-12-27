@@ -9,7 +9,7 @@ import numpy as np
 import soundfile as sf
 
 warnings.filterwarnings("ignore")
-sys.path.append(os.getcwd())
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 from modules import fairseq
 from modules.cut import cut, restore
