@@ -1,64 +1,100 @@
 # RVC-Python-FastInference
 
-A streamlined Python wrapper for fast inference with RVC.
-Specifically designed for inference tasks.
+A streamlined Python wrapper for fast inference with RVC (Retrieval-based Voice Conversion). Specifically designed for inference tasks with optimized performance.
 
 ## Introduction
 
 This streamlined wrapper offers an efficient solution for integrating RVC into your Python projects, focusing primarily on rapid inference. Whether you're working on voice conversion applications or related projects, this tool simplifies the process while maintaining performance.
 
 ## Key Features
-- Preloaded Models: Accelerate inference by loading models into memory beforehand, minimizing latency during runtime.
-- Batch Processing: Enhance efficiency by enabling batch processing, allowing for simultaneous conversion of multiple inputs, further optimizing throughput.
-- Support for Array Input and Output: Facilitate seamless integration with existing data pipelines by accepting and returning arrays, enhancing compatibility across various platforms and frameworks.
 
-## Getting Started
+- **Preloaded Models**: Accelerate inference by loading models into memory beforehand, minimizing latency during runtime.
+- **Batch Processing**: Enhance efficiency by enabling batch processing, allowing for simultaneous conversion of multiple inputs, further optimizing throughput.
+- **Support for Array Input and Output**: Facilitate seamless integration with existing data pipelines by accepting and returning arrays, enhancing compatibility across various platforms and frameworks.
+- **CLI Support**: Use the package from the command line for quick conversions.
 
-### Prerequisites
+## Installation
 
-- You need to have ffmpeg and Python 3.10 installed.
-- In windows is needed to install Microsoft Visual C++ Build Tools, MSVC and Windows 10 SDK:
+### From PyPI (Recommended)
 
-    * Go to the [Visual Studio downloads page](https://visualstudio.microsoft.com/visual-cpp-build-tools/); Or maybe you already have **Visual Studio Installer**? Open it. If you have it already click modify.
-    * Download and install the "Build Tools for Visual Studio" if you don't have it.
-    * During installation, under "Workloads", select "C++ build tools" and ensure the latest versions of "MSVCv142 - VS 2019 C++ x64/x86 build tools" and "Windows 10 SDK"  are selected ("Windows 11 SDK" if you are using Windows 11); OR go to individual components and find those two listed.
-    * Complete the installation.
-
-### Installation
-
-```
+```bash
 pip install infer_rvc_python
 ```
 
-# Usage
+### From GitHub (Latest Development Version)
 
-## Initialize the base class
-
+```bash
+pip install git+https://github.com/BF667/infer_rvc_python.git
 ```
+
+### From GitHub with Specific Branch
+
+```bash
+pip install git+https://github.com/BF667/infer_rvc_python.git@main
+```
+
+### From Local Source
+
+```bash
+git clone https://github.com/BF667/infer_rvc_python.git
+cd infer_rvc_python
+pip install -e .
+```
+
+### With Optional Dependencies
+
+```bash
+# Install with all optional dependencies
+pip install infer_rvc_python[all]
+
+# Install with yt-dlp for YouTube audio extraction
+pip install infer_rvc_python[all]
+
+# Install from git with all dependencies
+pip install git+https://github.com/BF667/infer_rvc_python.git[all]
+```
+
+## Prerequisites
+
+- You need to have ffmpeg and Python 3.10+ installed.
+- On Windows, you may need to install Microsoft Visual C++ Build Tools, MSVC and Windows 10 SDK:
+
+  - Go to the [Visual Studio downloads page](https://visualstudio.microsoft.com/visual-cpp-build-tools/); Or maybe you already have **Visual Studio Installer**? Open it. If you have it already click modify.
+  - Download and install the "Build Tools for Visual Studio" if you don't have it.
+  - During installation, under "Workloads", select "C++ build tools" and ensure the latest versions of "MSVCv142 - VS 2019 C++ x64/x86 build tools" and "Windows 10 SDK" are selected ("Windows 11 SDK" if you are using Windows 11); OR go to individual components and find those two listed.
+  - Complete the installation.
+
+## Usage
+
+### Python API
+
+#### Initialize the base class
+
+```python
 from infer_rvc_python import BaseLoader
 
 converter = BaseLoader(only_cpu=False, hubert_path=None, rmvpe_path=None)
 ```
 
-## Define a tag and select the model along with other parameters.
+#### Define a tag and select the model along with other parameters
 
-```
+```python
 converter.apply_conf(
-        tag="yoimiya",
-        file_model="model.pth",
-        pitch_algo="rmvpe+",
-        pitch_lvl=0,
-        file_index="model.index",
-        index_influence=0.66,
-        respiration_median_filtering=3,
-        envelope_ratio=0.25,
-        consonant_breath_protection=0.33
-    )
+    tag="yoimiya",
+    file_model="model.pth",
+    pitch_algo="rmvpe+",
+    pitch_lvl=0,
+    file_index="model.index",
+    index_influence=0.66,
+    respiration_median_filtering=3,
+    envelope_ratio=0.25,
+    consonant_breath_protection=0.33
+)
 ```
 
-## Select the audio or audios you want to convert.
+#### Select the audio or audios you want to convert
 
-```
+```python
 # audio_files = ["audio.wav", "haha.mp3"]
 audio_files = "myaudio.mp3"
 
@@ -66,9 +102,9 @@ audio_files = "myaudio.mp3"
 speakers_list = "yoimiya"
 ```
 
-## Perform inference
+#### Perform inference
 
-```
+```python
 result = converter(
     audio_files,
     speakers_list,
@@ -76,17 +112,20 @@ result = converter(
     parallel_workers=4
 )
 ```
+
 The `result` is a list with the paths of the converted files.
 
-## Unload models
-```
+#### Unload models
+
+```python
 converter.unload_models()
 ```
 
-# Preloading model (Reduces inference time)
+### Preloading Model (Reduces Inference Time)
 
 The initial execution will preload the model for the tag. Subsequent calls to inference with the same tag will benefit from preloaded components, thereby reducing inference time.
-```
+
+```python
 result_array, sample_rate = converter.generate_from_cache(
     audio_data="myaudiofile_path.wav",
     tag="yoimiya",
@@ -95,7 +134,7 @@ result_array, sample_rate = converter.generate_from_cache(
 
 The param audio_data can be a path or a tuple with (array_data, sampling_rate)
 
-```
+```python
 # array_data = np.array([-22, -22, -15, ..., 0, 0, 0], dtype=np.int16)
 # source_sample_rate = 16000
 data = (array_data, source_sample_rate)
@@ -104,9 +143,10 @@ result_array, sample_rate = converter.generate_from_cache(
     tag="yoimiya",
 )
 ```
+
 The result in both cases will be (array, sample_rate), which you can save or play in a notebook
 
-```
+```python
 # Save
 import soundfile as sf
 
@@ -117,22 +157,71 @@ sf.write(
 )
 ```
 
-```
+```python
 # Play; need to install ipython
 from IPython.display import Audio
 
 Audio(result_array, rate=sample_rate)
 ```
+
 When settings or the tag are altered, the model requires reloading. To maintain multiple preloaded models, you can instantiate another BaseLoader object.
-```
+
+```python
 second_converter = BaseLoader()
 ```
-# Credits
-- RVC-Project
-- FFMPEG
 
-# License
+### Command Line Interface
+
+The package also provides a command-line interface for quick conversions:
+
+```bash
+# Basic usage
+infer-rvc --model model.pth --input audio.wav --output output.wav
+
+# With GPU disabled
+infer-rvc --only-cpu --model model.pth --input audio.wav --output output.wav
+
+# With pitch shifting
+infer-rvc --model model.pth --pitch-shift 2 --input audio.wav --output output.wav
+
+# Using different pitch algorithm
+infer-rvc --model model.pth --pitch-algo harvest --input audio.wav --output output.wav
+
+# With index file
+infer-rvc --model model.pth --index model.index --input audio.wav --output output.wav
+
+# Show help
+infer-rvc --help
+```
+
+## Development
+
+### Setting Up Development Environment
+
+```bash
+# Clone the repository
+git clone https://github.com/BF667/infer_rvc_python.git
+cd infer_rvc_python
+
+# Install in development mode with all dependencies
+pip install -e ".[dev,all]"
+
+# Run tests
+pytest
+
+# Format code
+black infer_rvc_python tests
+```
+
+## Credits
+
+- [RVC-Project](https://github.com/RVC-Project/Retrieval-based-Voice-Conversion-WebUI)
+- [FFMPEG](https://ffmpeg.org/)
+
+## License
+
 This project is licensed under the MIT License.
 
-# Disclaimer
+## Disclaimer
+
 This software is provided for educational and research purposes only. The authors and contributors of this project do not endorse or encourage any misuse or unethical use of this software. Any use of this software for purposes other than those intended is solely at the user's own risk. The authors and contributors shall not be held responsible for any damages or liabilities arising from the use of this software inappropriately.
