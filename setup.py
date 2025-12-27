@@ -17,8 +17,6 @@ setup(
     packages=find_packages(),
     package_data={'': ['*.txt', '*.rep', '*.pickle']},
     install_requires=[
-        "pip>=23.3",
-        "wheel",
         "omegaconf>=2.0.6",
         "torch>=2.3.1",
         "torchvision>=0.18.1",
@@ -44,3 +42,4 @@ setup(
         ]},
 
 )
+
