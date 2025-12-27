@@ -8,7 +8,7 @@ import torch.nn.functional as F
 
 from scipy import signal
 
-sys.path.append(os.getcwd())
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 from modules.generator import Generator
 from modules.rms import RMSEnergyExtractor
