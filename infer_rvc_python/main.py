@@ -1,4 +1,4 @@
-from infer_rvc_python.lib.log_config import logger
+from infer_rvc_python.modules.log_config import logger
 import os
 import threading
 from tqdm import tqdm
@@ -24,9 +24,6 @@ class Config:
         if only_cpu:
             self.is_half = False
         elif torch.cuda.is_available():
-            # Simple heuristic: if not RTX 30/40 series, might prefer float32, 
-            # but the new module handles this internally mostly. 
-            # We keep is_half=True by default for CUDA as per the old behavior.
             pass
         else:
             self.is_half = False
@@ -340,3 +337,4 @@ class BaseLoader:
             if os.path.exists(output_audio_path):
                 os.remove(output_audio_path)
             raise e
+
