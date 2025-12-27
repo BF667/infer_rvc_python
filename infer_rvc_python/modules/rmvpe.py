@@ -8,7 +8,7 @@ import torch.nn.functional as F
 
 from librosa.filters import mel
 
-sys.path.append(os.getcwd())
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 from modules import opencl
 
