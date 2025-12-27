@@ -10,7 +10,7 @@ import numpy as np
 from librosa import yin, pyin
 from scipy.signal import medfilt
 
-sys.path.append(os.getcwd())
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 from modules.rmvpe import RMVPE
 from modules.utils import Autotune
