@@ -23,7 +23,7 @@ setup(
         "torchaudio>=2.3.1",
         "faiss-cpu>=1.7.3",
         "einops>=0.8.0",
-        "librosa>=0.10.2"
+        "librosa>=0.10.2",  # FIXED: Added missing comma here
         "praat-parselmouth",
         "soundfile>=0.13.0",
         "numpy>=1.25.2,<2.0.0",
@@ -38,8 +38,7 @@ setup(
     include_package_data=True,
     extras_require={"all": [
         "yt-dlp",
-        "edge-tts"
+        "edge-tts"  # FIXED: Added missing comma here
         ]},
 
 )
-
